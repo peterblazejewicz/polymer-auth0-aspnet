@@ -60,6 +60,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <span id="browser-sync-binding"></span>
   <template is="dom-bind" id="app">
 
+    <data-model id="model" isAuthenticated="{{isAuthenticated}}"></data-model>
+
     <paper-drawer-panel id="paperDrawerPanel">
       <!-- Drawer Scroll Header Panel -->
       <paper-scroll-header-panel drawer fixed>
@@ -80,7 +82,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Public Route</span>
           </a>
 
-          <a data-route="contact" href="{{baseUrl}}private-route">
+          <a data-route="contact" href="{{baseUrl}}private-route" hidden$="{{!isAuthenticated}}">
             <span>Private Route</span>
           </a>
         </paper-menu>
@@ -111,15 +113,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <section data-route="home">
               <paper-material elevation="1">
                 <h1>{{message}}</h1>
-                <paper-button on-tap="login" raised noink hidden$="{{!isAuthenticated}}">Log In</paper-button>
-                <paper-button on-tap="logout" raised noink hidden$="{{isAuthenticated}}">Log Out</paper-button>
+                <paper-button on-tap="login" raised noink hidden$="{{isAuthenticated}}">Log In</paper-button>
+                <paper-button on-tap="logout" raised noink hidden$="{{!isAuthenticated}}">Log Out</paper-button>
                 <paper-button on-tap="getSecretThing" raised noink hidden$="{{isAuthenticated}}">Get Secret Thing</paper-button>
-                <h3>{{secretThing}}</h3>
+                <h3 hidden$="{{!secretThing}}">{{secretThing}}</h3>
                 <paper-button on-tap="getDecodedJwt" raised noink hidden$="{{isAuthenticated}}">Get Decoded JWT</paper-button>
-                <pre hidden$="{{isAuthenticated}}">{{decodedJwt}}</pre>
+                <pre hidden$="{{!isAuthenticated}}">{{decodedJwt}}</pre>
                 <hr>
                 <a href="{{baseUrl}}public-route">Public Route</a>
-                <a href="{{baseUrl}}private-route" hidden$="{{isAuthenticated}}">Private Route</a>
+                <a href="{{baseUrl}}private-route" hidden$="{{!isAuthenticated}}">Private Route</a>
               </paper-material>
 
             </section>
