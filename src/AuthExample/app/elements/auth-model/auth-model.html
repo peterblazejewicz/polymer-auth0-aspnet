@@ -8,7 +8,9 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
+<link rel="import" href="auth0-js-import.html">
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<!-- Auth0 Lock script and AngularJS module -->
 
 <dom-module id="auth-model">
   <template strip-whitespace>
@@ -29,16 +31,45 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         hidden: true
       },
       properties: {
+
+        clientId: {
+          type: String,
+          notify: true,
+          reflectToAttribute: true
+        },
+        domain: {
+          type: String,
+          notify: true,
+          reflectToAttribute: true
+        },
         isAuthenticated: {
           type: Boolean,
           notify: true,
           value: false
         },
-        username: {
-          type: String,
-          notify: true,
-          value: 'pibl'
+        user: {
+          type: Object,
+          notify: true
+        },
+        ref: {
+          type: Object,
+          readOnly: false,
+          notify: true
         }
+      },
+      ready: function() {
+        if(this.clientId && this.domain) {
+          this.$.ref = new Auth0Lock(this.clientId, this.domain);
+        }
+        this.isAuthenticated = false;
+      },
+      login: function() {
+        this.isAuthenticated = true;
+        alert('login');
+      },
+      logout: function() {
+        this.isAuthenticated = false;
+        alert('logout');
       }
     });
   })();
