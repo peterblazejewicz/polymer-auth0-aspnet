@@ -79,4 +79,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     app.$.paperDrawerPanel.closeDrawer();
   };
 
+  app.login = function() {
+    app.$.authModel.login();
+  };
+
+  app.logout = function() {
+    app.$.authModel.logout();
+  };
+
 })(document);

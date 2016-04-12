@@ -65,11 +65,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       login: function() {
         this.isAuthenticated = true;
-        alert('login');
       },
       logout: function() {
+        // TODO
+        // localStorage.removeItem('profile');
+        // localStorage.removeItem('id_token');
         this.isAuthenticated = false;
-        alert('logout');
       }
     });
   })();

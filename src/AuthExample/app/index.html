@@ -116,8 +116,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <iron-pages attr-for-selected="data-route" selected="{{route}}">
             <section data-route="home">
               <paper-material elevation="1">
-                <paper-button on-tap="debugger" raised noink hidden$="[[authenticated]]">Log In</paper-button>
-                <paper-button on-tap="debugger" raised noink hidden$="[[!authenticated]]">Log Out</paper-button>
+                <paper-button on-tap="login" raised noink hidden$="[[authenticated]]">Log In</paper-button>
+                <paper-button on-tap="logout" raised noink hidden$="[[!authenticated]]">Log Out</paper-button>
                 <paper-button on-tap="getSecretThing" raised noink hidden$="[[!authenticated]]">Get Secret Thing</paper-button>
                 <h3 hidden$="[[!authenticated]]">{{secretThing}}</h3>
                 <paper-button on-tap="getDecodedJwt" raised noink hidden$="[[!authenticated]]">Get Decoded JWT</paper-button>
