@@ -53,7 +53,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         ref: {
           type: Object,
-          readOnly: false,
+          readOnly: true,
           notify: true
         }
       },
@@ -64,12 +64,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.isAuthenticated = false;
       },
       login: function() {
-        this.isAuthenticated = true;
+        if(this.$.ref) {
+          this.$.ref.show(function(err, profile, token) {
+            if(err) {
+              console.log(err);
+            } else {
+              localStorage.setItem('profile', JSON.stringify(profile));
+              localStorage.setItem('id_token', token);
+              this.isAuthenticated = true;
+            }
+          });
+        }
       },
       logout: function() {
         // TODO
-        // localStorage.removeItem('profile');
-        // localStorage.removeItem('id_token');
+        localStorage.removeItem('profile');
+        localStorage.removeItem('id_token');
         this.isAuthenticated = false;
       }
     });
