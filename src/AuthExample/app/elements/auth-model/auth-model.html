@@ -65,13 +65,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       login: function() {
         if(this.$.ref) {
+          var self = this;
           this.$.ref.show(function(err, profile, token) {
             if(err) {
               console.log(err);
             } else {
+              self.user = profile;
               localStorage.setItem('profile', JSON.stringify(profile));
               localStorage.setItem('id_token', token);
-              this.isAuthenticated = true;
+              self.isAuthenticated = true;
             }
           });
         }
