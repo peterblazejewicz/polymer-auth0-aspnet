@@ -85,6 +85,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         localStorage.removeItem('profile');
         localStorage.removeItem('id_token');
         this.isAuthenticated = false;
+      },
+      getDecodedJwt: function() {
+        var jwt = localStorage.getItem('id_token');
+        if(jwt) {
+
+        }
       }
     });
   })();
