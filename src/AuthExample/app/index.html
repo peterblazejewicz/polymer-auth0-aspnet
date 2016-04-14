@@ -64,6 +64,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       client-id="fsXCZuroNA1uKX9uV1AbmPuDUSLkyh6s"
       domain="blazejewicz.eu.auth0.com"
       is-authenticated="{{authenticated}}"
+      user="{{user}}"
       ></auth-model>
 
     <paper-drawer-panel id="paperDrawerPanel">
@@ -116,6 +117,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <iron-pages attr-for-selected="data-route" selected="{{route}}">
             <section data-route="home">
               <paper-material elevation="1">
+                <template is="dom-if" if={{user}}>
+                  <img src$="{{user.picture}}" >
+                  <h2>{{user.name}}</h2>
+                </template>
                 <paper-button on-tap="login" raised noink hidden$="[[authenticated]]">Log In</paper-button>
                 <paper-button on-tap="logout" raised noink hidden$="[[!authenticated]]">Log Out</paper-button>
                 <paper-button on-tap="getSecretThing" raised noink hidden$="[[!authenticated]]">Get Secret Thing</paper-button>
