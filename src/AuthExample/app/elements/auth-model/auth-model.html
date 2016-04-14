@@ -68,6 +68,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var self = this;
           this.$.ref.show(function(err, profile, token) {
             if(err) {
+              // FIXME: handler
               console.log(err);
             } else {
               self.user = profile;
@@ -79,6 +80,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
       logout: function() {
+        this.user = null;
         // TODO
         localStorage.removeItem('profile');
         localStorage.removeItem('id_token');
