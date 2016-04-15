@@ -1,0 +1,56 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/app-layout/app-layout.html">
+
+<dom-module id="auth-app">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <app-drawer-layout responsive-width="">
+    <app-drawer id="drawer" swipe-open>
+      <app-header-layout has-scrolling-region>
+        <template is="dom-if" if="{{user}}">
+          <app-header fixed >
+            <div class="avatar-container">
+              <div class="image"></div>
+            </div>
+            <div class="contact-info">
+              <div class="name">[[user.username]]</div>
+              <div class="email">[[user.email]]</div>
+            </div>
+          </app-header>
+        </template>
+      </app-header-layout>
+    </app-drawer>
+  </app-drawer-layout>
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'auth-app',
+
+        properties: {
+          user: {
+            type: Object,
+            notify: true
+          }
+        },
+
+        attached: function() {
+          this.async(function() {
+            console.log('attached');
+            this.user = {
+              "username": "Peter",
+              "email": "email@example.com"
+            }
+          });
+        }
+      });
+    })();
+  </script>
+
+</dom-module>
