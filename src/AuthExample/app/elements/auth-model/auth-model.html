@@ -55,6 +55,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Object,
           readOnly: true,
           notify: true
+        },
+        decodedJwt: {
+          type: String,
+          notify: true
         }
       },
       ready: function() {
@@ -89,7 +93,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       getDecodedJwt: function() {
         var jwt = localStorage.getItem('id_token');
         if(jwt) {
-
+          this.decodedJwt = JSON.stringify(jwt_decode(jwt), null, 2);
         }
       }
     });
