@@ -1,5 +1,8 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/carbon-route/carbon-location.html">
+<link rel="import" href="../../bower_components/carbon-route/carbon-route.html">
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
+<link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 
 <dom-module id="auth-app">
   <template>
@@ -8,6 +11,18 @@
         display: block;
       }
     </style>
+
+    <carbon-location route="{{route}}" use-hash-as-path></carbon-location>
+    <carbon-route
+        route="{{route}}"
+        pattern="/:page"
+        data="{{pageData}}"
+        tail="{{subRoute}}"></carbon-route>
+    <carbon-route
+        route="{{subRoute}}"
+        pattern="/:id"
+        data="{{idData}}"></carbon-route>
+
     <app-drawer-layout responsive-width="">
     <app-drawer id="drawer" swipe-open>
       <app-header-layout has-scrolling-region>
@@ -22,6 +37,18 @@
             </div>
           </app-header>
         </template>
+
+        <!-- nav menu -->
+          <paper-listbox
+              selected="{{pageData.page}}"
+              attr-for-selected="name"
+              on-iron-activate="drawerSelected">
+            <paper-item name="home">Home</paper-item>
+            <paper-item name="favorites">Favorites</paper-item>
+            <paper-item name="saved">Saved</paper-item>
+            <paper-item name="trending">Trending</paper-item>
+          </paper-listbox>
+
       </app-header-layout>
     </app-drawer>
   </app-drawer-layout>
