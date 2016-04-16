@@ -3,6 +3,7 @@
 <link rel="import" href="../../bower_components/carbon-route/carbon-route.html">
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
+<link rel="import" href="../contact-card/contact-card.html">
 
 <dom-module id="auth-app">
   <template>
@@ -27,15 +28,8 @@
     <app-drawer id="drawer" swipe-open>
       <app-header-layout has-scrolling-region>
         <template is="dom-if" if="{{user}}">
-          <app-header fixed >
-            <div class="avatar-container">
-              <div class="image"></div>
-            </div>
-            <div class="contact-info">
-              <div class="name">[[user.username]]</div>
-              <div class="email">[[user.email]]</div>
-            </div>
-          </app-header>
+          <contact-card user="{{user}}">
+          </contact-card>
         </template>
 
         <!-- nav menu -->

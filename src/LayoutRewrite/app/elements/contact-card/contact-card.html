@@ -1,0 +1,68 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<dom-module id="contact-card">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+
+      :host .avatar-container {
+        position: relative;
+        border: 2px solid #00AA8D;
+        border-radius: 50%;
+        height: 90px;
+        padding: 2px;
+        width: 90px;
+        margin: 20px auto;
+      }
+
+      :host .avatar-container .image {
+        background-image: url('//app-layout-assets.appspot.com/assets/pesto/avatar.jpg');
+        background-size: contain;
+        border-radius: 50%;
+        height: 100%;
+        width: 100%;
+      }
+
+      :host .contact-info {
+        margin: 0 20px;
+        padding-bottom: 20px;
+        /*border-bottom: 1px solid #CCC;*/
+        text-align: center;
+      }
+      :host .contact-info .name {
+        font-weight: bold;
+      }
+      :host .contact-info .email {
+        color: #999;
+      }
+      :host .contact-info p {
+        margin: 0.5em 0;
+      }
+    </style>
+    <div class="avatar-container">
+      <div class="image"></div>
+    </div>
+    <div class="contact-info">
+      <p class="name">[[user.name]]</p>
+      <p class="email">[[user.email]]</p>
+    </div>
+  </template>
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'contact-card',
+
+        properties: {
+          user: {
+            type: Object,
+            notify: true
+          }
+        }
+      });
+    })();
+  </script>
+</dom-module>
