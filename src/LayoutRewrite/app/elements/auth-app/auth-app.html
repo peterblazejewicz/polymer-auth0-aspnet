@@ -14,11 +14,16 @@
       .login-actions {
         @apply(--layout-horizontal);
         @apply(--layout-end-justified);
-        padding: 0.5em 0.25em;
+        padding: 0.5em 0.8em;
       }
       .login-actions paper-button {
         @apply(--layout-self-end);
         border: 1px solid var(--paper-button-ink-color);
+      }
+
+      app-toolbar h1 {
+        font-size: var(--app-toolbar-font-size, 20px);
+        font-weight: normal;
       }
     </style>
 
@@ -33,34 +38,43 @@
         pattern="/:id"
         data="{{idData}}"></carbon-route>
 
-    <app-drawer-layout responsive-width="">
-    <app-drawer id="drawer" swipe-open>
-      <app-header-layout has-scrolling-region>
-        <div class="login-actions">
-          <template is="dom-if" if="{{!user}}">
-            <paper-button noink>Login</paper-button>
-          </template>
+    <app-scrollpos-control
+      selected="[[pageData.page]]"
+      reset="[[isDetailPage(pageData.page)]]"></app-scrollpos-control>
+    <app-drawer-layout responsive-width="1280px" drawer-width="250px">
+      <app-drawer id="drawer" swipe-open>
+        <app-header-layout has-scrolling-region>
+          <div class="login-actions">
+            <template is="dom-if" if="{{!user}}">
+              <paper-button noink>Login</paper-button>
+            </template>
+            <template is="dom-if" if="{{user}}">
+              <paper-button noink>Logout</paper-button>
+            </template>
+          </div>
           <template is="dom-if" if="{{user}}">
-            <paper-button noink>Logout</paper-button>
+            <contact-card user="{{user}}">
+            </contact-card>
           </template>
-        </div>
-        <template is="dom-if" if="{{user}}">
-          <contact-card user="{{user}}">
-          </contact-card>
-        </template>
-        <!-- nav menu -->
-          <paper-listbox
-              selected="{{pageData.page}}"
-              attr-for-selected="name"
-              on-iron-activate="drawerSelected">
+          <!-- nav menu -->
+          <paper-listbox selected="{{pageData.page}}" attr-for-selected="name" on-iron-activate="drawerSelected">
             <paper-item name="home">Home</paper-item>
             <paper-item name="favorites">Favorites</paper-item>
             <paper-item name="saved">Saved</paper-item>
             <paper-item name="trending">Trending</paper-item>
           </paper-listbox>
+        </app-header-layout>
+      </app-drawer>
+      <!-- main panel -->
+      <app-header-layout>
+        <app-header fixed effects="waterfall">
+          <app-toolbar class="title-toolbar main-title-toolbar">
+            <paper-icon-button drawer-toggle icon="menu" alt="Toggle menu" noink></paper-icon-button>
+            <h1 class="title">App Title</h1>
+          </app-toolbar>
+        </app-header>
       </app-header-layout>
-    </app-drawer>
-  </app-drawer-layout>
+    </app-drawer-layout>
   </template>
   <script>
     (function() {
@@ -88,5 +102,4 @@
       });
     })();
   </script>
-
 </dom-module>
