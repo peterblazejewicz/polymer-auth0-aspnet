@@ -5,11 +5,13 @@
     <style>
       :host {
         display: block;
+        @apply(--layout-vertical);
       }
 
       :host .avatar-container {
+        @apply(--layout-center-center);
         position: relative;
-        border: 2px solid #00AA8D;
+        border: 2px solid #CCC;
         border-radius: 50%;
         height: 90px;
         padding: 2px;
@@ -21,15 +23,16 @@
         background-image: url('//app-layout-assets.appspot.com/assets/pesto/avatar.jpg');
         background-size: contain;
         border-radius: 50%;
+        @apply(--layout-self-stretch);
         height: 100%;
-        width: 100%;
       }
 
       :host .contact-info {
+        @apply(--layout-vertical);
+        @apply(--layout-around-justified);
         margin: 0 20px;
         padding-bottom: 20px;
         border-bottom: 1px solid #CCC;
-        text-align: center;
       }
       :host .contact-info .name {
         font-weight: bold;
@@ -38,6 +41,7 @@
         color: #999;
       }
       :host .contact-info p {
+        @apply(--layout-self-center);
         margin: 0.5em 0;
       }
     </style>
