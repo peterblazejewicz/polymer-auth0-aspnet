@@ -11,6 +11,15 @@
       :host {
         display: block;
       }
+      .login-actions {
+        @apply(--layout-horizontal);
+        @apply(--layout-end-justified);
+        padding: 0.5em 0.25em;
+      }
+      .login-actions paper-button {
+        @apply(--layout-self-end);
+        border: 1px solid var(--paper-button-ink-color);
+      }
     </style>
 
     <carbon-location route="{{route}}" use-hash-as-path></carbon-location>
@@ -27,6 +36,14 @@
     <app-drawer-layout responsive-width="">
     <app-drawer id="drawer" swipe-open>
       <app-header-layout has-scrolling-region>
+        <div class="login-actions">
+          <template is="dom-if" if="{{!user}}">
+            <paper-button noink>Login</paper-button>
+          </template>
+          <template is="dom-if" if="{{user}}">
+            <paper-button noink>Logout</paper-button>
+          </template>
+        </div>
         <template is="dom-if" if="{{user}}">
           <contact-card user="{{user}}">
           </contact-card>
