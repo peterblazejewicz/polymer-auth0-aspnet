@@ -31,18 +31,18 @@
           <contact-card user="{{user}}">
           </contact-card>
         </template>
-
         <!-- nav menu -->
           <paper-listbox
               selected="{{pageData.page}}"
               attr-for-selected="name"
               on-iron-activate="drawerSelected">
+              <paper-item>Login</paper-item>
+              <paper-item>Logout</paper-item>
             <paper-item name="home">Home</paper-item>
             <paper-item name="favorites">Favorites</paper-item>
             <paper-item name="saved">Saved</paper-item>
             <paper-item name="trending">Trending</paper-item>
           </paper-listbox>
-
       </app-header-layout>
     </app-drawer>
   </app-drawer-layout>
@@ -65,7 +65,7 @@
           this.async(function() {
             console.log('attached');
             this.user = {
-              "username": "Peter",
+              "name": "Peter Grzegorz Blazejewicz",
               "email": "email@example.com"
             }
           });
