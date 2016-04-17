@@ -97,8 +97,6 @@
           route: Object,
           data: Object,
           subRoute: Object,
-          pageData: Object,
-          idData: Object,
           user: {
             type: Object,
             notify: true
@@ -107,16 +105,17 @@
 
         attached: function() {
           this.async(function() {
-            this.route.path = 'home';
             this.user = {
               "name": "Peter Grzegorz Blazejewicz",
               "email": "email@example.com"
             }
           });
         },
+
         drawerSelected: function() {
           if (!this.$.drawer.persistent) this.$.drawer.close();
         },
+
         ready: function() {
           this.async(function() {
             if(!this.route.path) {
