@@ -2,6 +2,7 @@
 <link rel="import" href="../../bower_components/carbon-route/carbon-location.html">
 <link rel="import" href="../../bower_components/carbon-route/carbon-route.html">
 <link rel="import" href="../../bower_components/app-layout/app-layout.html">
+<link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../contact-card/contact-card.html">
 
@@ -31,16 +32,11 @@
     <carbon-route
         route="{{route}}"
         pattern="/:page"
-        data="{{pageData}}"
+        data="{{data}}"
         tail="{{subRoute}}"></carbon-route>
-    <carbon-route
-        route="{{subRoute}}"
-        pattern="/:id"
-        data="{{idData}}"></carbon-route>
 
     <app-scrollpos-control
-      selected="[[pageData.page]]"
-      reset="[[isDetailPage(pageData.page)]]"></app-scrollpos-control>
+      selected="[[data.page]]"></app-scrollpos-control>
     <app-drawer-layout responsive-width="1280px" drawer-width="250px">
       <app-drawer id="drawer" swipe-open>
         <app-header-layout has-scrolling-region>
@@ -57,11 +53,12 @@
             </contact-card>
           </template>
           <!-- nav menu -->
-          <paper-listbox selected="{{pageData.page}}" attr-for-selected="name" on-iron-activate="drawerSelected">
+          <paper-listbox selected="{{data.page}}"
+            attr-for-selected="name"
+            on-iron-activate="drawerSelected">
             <paper-item name="home">Home</paper-item>
-            <paper-item name="favorites">Favorites</paper-item>
-            <paper-item name="saved">Saved</paper-item>
-            <paper-item name="trending">Trending</paper-item>
+            <paper-item name="public-route">Public Route</paper-item>
+            <paper-item name="private-route">Private Route</paper-item>
           </paper-listbox>
         </app-header-layout>
       </app-drawer>
@@ -73,6 +70,19 @@
             <h1 class="title">App Title</h1>
           </app-toolbar>
         </app-header>
+        <!-- list/detail pages -->
+        <iron-pages selected="[[data.page]]" attr-for-selected="name">
+          <!-- list page -->
+          <iron-pages name="home" attr-for-selected="name">
+            Home
+          </iron-pages>
+          <iron-pages name="public-route" attr-for-selected="name">
+            Public Route
+          </iron-pages>
+          <iron-pages name="private-route" attr-for-selected="name">
+            Private route
+          </iron-pages>
+        </iron-pages>
       </app-header-layout>
     </app-drawer-layout>
   </template>
@@ -84,6 +94,11 @@
         is: 'auth-app',
 
         properties: {
+          route: Object,
+          data: Object,
+          subRoute: Object,
+          pageData: Object,
+          idData: Object,
           user: {
             type: Object,
             notify: true
@@ -92,10 +107,20 @@
 
         attached: function() {
           this.async(function() {
-            console.log('attached');
+            this.route.path = 'home';
             this.user = {
               "name": "Peter Grzegorz Blazejewicz",
               "email": "email@example.com"
+            }
+          });
+        },
+        drawerSelected: function() {
+          if (!this.$.drawer.persistent) this.$.drawer.close();
+        },
+        ready: function() {
+          this.async(function() {
+            if(!this.route.path) {
+              this.set('route.path', '/');
             }
           });
         }
