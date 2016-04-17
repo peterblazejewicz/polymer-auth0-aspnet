@@ -5,6 +5,9 @@
 <link rel="import" href="../../bower_components/app-layout/app-scroll-effects/effects/waterfall.html">
 <link rel="import" href="../../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../contact-card/contact-card.html">
+<link rel="import" href="../home-page/home-page.html">
+<link rel="import" href="../private-page/private-page.html">
+<link rel="import" href="../public-page/public-page.html">
 
 <dom-module id="auth-app">
   <template>
@@ -25,6 +28,10 @@
       app-toolbar h1 {
         font-size: var(--app-toolbar-font-size, 20px);
         font-weight: normal;
+      }
+
+      .main-container {
+        padding: 16px;
       }
     </style>
 
@@ -57,8 +64,8 @@
             attr-for-selected="name"
             on-iron-activate="drawerSelected">
             <paper-item name="home">Home</paper-item>
-            <paper-item name="public-route">Public Route</paper-item>
-            <paper-item name="private-route">Private Route</paper-item>
+            <paper-item name="public-page">Public Page</paper-item>
+            <paper-item name="private-page">Private Page</paper-item>
           </paper-listbox>
         </app-header-layout>
       </app-drawer>
@@ -70,19 +77,16 @@
             <h1 class="title">App Title</h1>
           </app-toolbar>
         </app-header>
-        <!-- list/detail pages -->
-        <iron-pages selected="[[data.page]]" attr-for-selected="name">
-          <!-- list page -->
-          <iron-pages name="home" attr-for-selected="name">
-            Home
+        <main class="main-container">
+          <iron-pages selected="[[data.page]]" attr-for-selected="name">
+            <home-page name="home">
+            </home-page>
+            <public-page name="public-page">
+            </public-page>
+            <private-page name="private-page">
+            </private-page>
           </iron-pages>
-          <iron-pages name="public-route" attr-for-selected="name">
-            Public Route
-          </iron-pages>
-          <iron-pages name="private-route" attr-for-selected="name">
-            Private route
-          </iron-pages>
-        </iron-pages>
+        </main>
       </app-header-layout>
     </app-drawer-layout>
   </template>
