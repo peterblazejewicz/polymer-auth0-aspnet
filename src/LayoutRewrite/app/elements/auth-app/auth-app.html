@@ -138,6 +138,11 @@
         _onIronSelectHandler: function(event) {
           if(this.$.page404 === event.detail.item) {
             // handler for 404 page can be added here
+          } else {
+            this.fire('iron-signal', {
+              name: 'page-selected',
+              data: this.data.page
+            });
           }
         }
       });

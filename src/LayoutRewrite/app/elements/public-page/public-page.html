@@ -9,7 +9,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
-
 <dom-module id="public-page">
   <template>
     <style>
@@ -17,6 +16,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
+    <iron-signals on-iron-signal-page-selected="pageSelected"></iron-signals>
     <div>Hello from <span>{{foo}}</span></div>
   </template>
   <script>
@@ -31,6 +31,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           value: 'public-page',
           notify: true
+        }
+      },
+      pageSelected: function(event) {
+        if(event.detail === 'public-page') {
+          this.async(function () {
+            alert('me');
+          });
+
         }
       }
     });
