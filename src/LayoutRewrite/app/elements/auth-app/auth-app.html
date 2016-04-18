@@ -8,6 +8,7 @@
 <link rel="import" href="../home-page/home-page.html">
 <link rel="import" href="../private-page/private-page.html">
 <link rel="import" href="../public-page/public-page.html">
+<link rel="import" href="../not-found-page/not-found-page.html">
 
 <dom-module id="auth-app">
   <template>
@@ -78,13 +79,16 @@
           </app-toolbar>
         </app-header>
         <main class="main-container">
-          <iron-pages selected="[[data.page]]" attr-for-selected="name">
+          <iron-pages selected="[[data.page]]"
+            attr-for-selected="name"
+            fallback-selection="404">
             <home-page name="home">
             </home-page>
             <public-page name="public-page">
             </public-page>
             <private-page name="private-page">
             </private-page>
+            <not-found-page id="page404" name="404" on-iron-select="on404Page"></not-found-page>
           </iron-pages>
         </main>
       </app-header-layout>
