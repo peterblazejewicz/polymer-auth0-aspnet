@@ -88,7 +88,7 @@
             </public-page>
             <private-page name="private-page">
             </private-page>
-            <not-found-page id="page404" name="404" on-iron-select="on404Page"></not-found-page>
+            <not-found-page id="page404" name="404" on-iron-select="onIronSelect"></not-found-page>
           </iron-pages>
         </main>
       </app-header-layout>
@@ -110,7 +110,9 @@
             notify: true
           }
         },
-
+        listeners: {
+          'iron-select': '_onIronSelectHandler'
+        },
         attached: function() {
           this.async(function() {
             this.user = {
@@ -131,6 +133,12 @@
               this.set('route.path', '/home');
             }
           });
+
+        },
+        _onIronSelectHandler: function(event) {
+          if(this.$.page404 === event.detail.item) {
+            // handler for 404 page can be added here
+          }
         }
       });
     })();
