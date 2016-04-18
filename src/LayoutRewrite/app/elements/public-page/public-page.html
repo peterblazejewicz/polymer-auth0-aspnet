@@ -17,7 +17,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
     <iron-signals on-iron-signal-page-selected="pageSelected"></iron-signals>
-    <div>Hello from <span>{{foo}}</span></div>
+    <div>Hello from public page</div>
   </template>
   <script>
   (function() {
@@ -26,21 +26,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'public-page',
 
-      properties: {
-        foo: {
-          type: String,
-          value: 'public-page',
-          notify: true
-        }
-      },
       pageSelected: function(event) {
-        if(event.detail === 'public-page') {
-          this.async(function () {
-            alert('me');
-          });
-
+        if(event.detail === this.id) {
+          console.log(this.id);
         }
       }
+
     });
   })();
   </script>

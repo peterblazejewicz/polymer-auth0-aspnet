@@ -17,7 +17,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: block;
       }
     </style>
-    <div>Hello from <span>{{foo}}</span></div>
+    <iron-signals on-iron-signal-page-selected="pageSelected"></iron-signals>
+    <div>Hello from Home page</div>
   </template>
   <script>
   (function() {
@@ -26,13 +27,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     Polymer({
       is: 'home-page',
 
-      properties: {
-        foo: {
-          type: String,
-          value: 'home-page',
-          notify: true
+      pageSelected: function(event) {
+        if(event.detail === this.id) {
+          console.log(this.id);
         }
       }
+
     });
   })();
   </script>

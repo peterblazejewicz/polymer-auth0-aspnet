@@ -79,16 +79,16 @@
           </app-toolbar>
         </app-header>
         <main class="main-container">
-          <iron-pages selected="[[data.page]]"
-            attr-for-selected="name"
-            fallback-selection="404">
-            <home-page name="home">
+          <iron-pages id="pages" selected="[[data.page]]"
+            attr-for-selected="id"
+            fallback-selection="page-404">
+            <home-page id="home">
             </home-page>
-            <public-page name="public-page">
+            <public-page id="public-page">
             </public-page>
-            <private-page name="private-page">
+            <private-page id="private-page">
             </private-page>
-            <not-found-page id="page404" name="404" on-iron-select="onIronSelect"></not-found-page>
+            <not-found-page id="page-404" on-iron-select="onIronSelect"></not-found-page>
           </iron-pages>
         </main>
       </app-header-layout>
@@ -111,7 +111,7 @@
           }
         },
         listeners: {
-          'iron-select': '_onIronSelectHandler'
+          'pages.iron-select': '_onPagesSelected'
         },
         attached: function() {
           this.async(function() {
@@ -135,7 +135,7 @@
           });
 
         },
-        _onIronSelectHandler: function(event) {
+        _onPagesSelected: function(event) {
           if(this.$.page404 === event.detail.item) {
             // handler for 404 page can be added here
           } else {
