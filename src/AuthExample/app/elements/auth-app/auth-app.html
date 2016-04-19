@@ -36,7 +36,7 @@
       }
     </style>
 
-    <carbon-location route="{{route}}" use-hash-as-path></carbon-location>
+    <carbon-location route="{{route}}"></carbon-location>
     <carbon-route
         route="{{route}}"
         pattern="/:page"
@@ -135,7 +135,7 @@
 
         ready: function() {
           this.async(function() {
-            if(!this.route.path) {
+            if(!this.route.path || this.route.path === '/') {
               this.set('route.path', '/home');
             }
           });
