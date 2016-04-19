@@ -4,11 +4,14 @@
   "dependencies": {
     "iron-elements": "PolymerElements/iron-elements#^1.0.0",
     "neon-elements": "PolymerElements/neon-elements#^1.0.0",
-    "page": "visionmedia/page.js#~1.6.4",
     "paper-elements": "PolymerElements/paper-elements#^1.0.1",
     "platinum-elements": "PolymerElements/platinum-elements#^1.1.0",
     "polymer": "Polymer/polymer#^1.2.0",
-    "paper-button": "PolymerElements/paper-button#^1.0.11"
+    "paper-button": "PolymerElements/paper-button#^1.0.11",
+    "app-layout": "PolymerLabs/app-layout#^0.0.15",
+    "paper-listbox": "polymerelements/paper-listbox#^1.1.2",
+    "carbon-route": "PolymerElements/carbon-route#^0.8.4",
+    "iron-signals": "PolymerElements/iron-signals#^1.0.3"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"
