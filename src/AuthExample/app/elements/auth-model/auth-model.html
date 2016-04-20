@@ -71,10 +71,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             notify: true
           },
 
-          decodedJwt: {
-            type: String,
-            notify: true
-          }
         },
 
         ready: function() {
@@ -105,13 +101,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.token = null;
           this.isAuthenticated = false;
         },
-
-        getDecodedJwt: function() {
-          // var jwt = localStorage.getItem('id_token');
-          // if (jwt) {
-          //   this.decodedJwt = JSON.stringify(jwt_decode(jwt), null, 2);
-          // }
-        }
 
       });
     })();
