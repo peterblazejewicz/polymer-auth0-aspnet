@@ -21,82 +21,92 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </style>
   </template>
   <script>
-  (function() {
-    'use strict';
+    (function() {
+      'use strict';
 
-    Polymer({
-      is: 'auth-model',
+      Polymer({
+        is: 'auth-model',
 
-      hostAttributes: {
-        hidden: true
-      },
-      properties: {
+        hostAttributes: {
+          hidden: true
+        },
+        properties: {
 
-        clientId: {
-          type: String,
-          notify: true,
-          reflectToAttribute: true
+          clientId: {
+            type: String,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          domain: {
+            type: String,
+            notify: true,
+            reflectToAttribute: true
+          },
+
+          isAuthenticated: {
+            type: Boolean,
+            notify: true,
+            value: false
+          },
+
+          user: {
+            type: Object,
+            notify: true
+          },
+
+          ref: {
+            type: Object,
+            readOnly: true,
+            notify: true
+          },
+
+          decodedJwt: {
+            type: String,
+            notify: true
+          }
         },
-        domain: {
-          type: String,
-          notify: true,
-          reflectToAttribute: true
+
+        ready: function() {
+          if (this.clientId && this.domain) {
+            this.$.ref = new Auth0Lock(this.clientId, this.domain);
+          }
+          this.isAuthenticated = false;
         },
-        isAuthenticated: {
-          type: Boolean,
-          notify: true,
-          value: false
+
+        login: function() {
+          if (this.$.ref) {
+            var self = this;
+            this.$.ref.show(function(err, profile, token) {
+              if (err) {
+                // FIXME: handler
+                console.log(err);
+              } else {
+                self.user = profile;
+                localStorage.setItem('profile', JSON.stringify(profile));
+                localStorage.setItem('id_token', token);
+                self.isAuthenticated = true;
+              }
+            });
+          }
         },
-        user: {
-          type: Object,
-          notify: true
+
+        logout: function() {
+          this.user = null;
+          // TODO
+          localStorage.removeItem('profile');
+          localStorage.removeItem('id_token');
+          this.isAuthenticated = false;
         },
-        ref: {
-          type: Object,
-          readOnly: true,
-          notify: true
-        },
-        decodedJwt: {
-          type: String,
-          notify: true
+
+        getDecodedJwt: function() {
+          var jwt = localStorage.getItem('id_token');
+          if (jwt) {
+            this.decodedJwt = JSON.stringify(jwt_decode(jwt), null, 2);
+          }
         }
-      },
-      ready: function() {
-        if(this.clientId && this.domain) {
-          this.$.ref = new Auth0Lock(this.clientId, this.domain);
-        }
-        this.isAuthenticated = false;
-      },
-      login: function() {
-        if(this.$.ref) {
-          var self = this;
-          this.$.ref.show(function(err, profile, token) {
-            if(err) {
-              // FIXME: handler
-              console.log(err);
-            } else {
-              self.user = profile;
-              localStorage.setItem('profile', JSON.stringify(profile));
-              localStorage.setItem('id_token', token);
-              self.isAuthenticated = true;
-            }
-          });
-        }
-      },
-      logout: function() {
-        this.user = null;
-        // TODO
-        localStorage.removeItem('profile');
-        localStorage.removeItem('id_token');
-        this.isAuthenticated = false;
-      },
-      getDecodedJwt: function() {
-        var jwt = localStorage.getItem('id_token');
-        if(jwt) {
-          this.decodedJwt = JSON.stringify(jwt_decode(jwt), null, 2);
-        }
-      }
-    });
-  })();
+
+      });
+    })();
   </script>
 </dom-module>

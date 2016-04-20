@@ -58,49 +58,45 @@
             <template is="dom-if" if="{{!authenticated}}">
               <paper-button noink on-tap="login">Login</paper-button>
             </template>
-            <template is="dom-if" if="{{authenticated}}">
+  <template is="dom-if" if="{{authenticated}}">
               <paper-button noink on-tap="logout">Logout</paper-button>
             </template>
-          </div>
-          <template is="dom-if" if="{{user}}">
+  </div>
+  <template is="dom-if" if="{{user}}">
             <contact-card user="{{user}}">
             </contact-card>
           </template>
-          <!-- nav menu -->
-          <paper-listbox selected="{{data.page}}"
-            attr-for-selected="name"
-            on-iron-activate="drawerSelected">
-            <paper-item name="home">Home</paper-item>
-            <paper-item name="public-page">Public Page</paper-item>
-            <template is="dom-if" if="{{authenticated}}">
+  <!-- nav menu -->
+  <paper-listbox selected="{{data.page}}" attr-for-selected="name" on-iron-activate="drawerSelected">
+    <paper-item name="home">Home</paper-item>
+    <paper-item name="public-page">Public Page</paper-item>
+    <template is="dom-if" if="{{authenticated}}">
               <paper-item name="private-page">Private Page</paper-item>
             </template>
-          </paper-listbox>
-        </app-header-layout>
-      </app-drawer>
-      <!-- main panel -->
-      <app-header-layout>
-        <app-header fixed effects="waterfall">
-          <app-toolbar class="title-toolbar main-title-toolbar">
-            <paper-icon-button drawer-toggle icon="menu" alt="Toggle menu" noink></paper-icon-button>
-            <h1 class="title">App Title</h1>
-          </app-toolbar>
-        </app-header>
-        <main class="main-container">
-          <iron-pages id="pages" selected="[[data.page]]"
-            attr-for-selected="id"
-            fallback-selection="page-404">
-            <home-page id="home">
-            </home-page>
-            <public-page id="public-page">
-            </public-page>
-            <private-page id="private-page">
-            </private-page>
-            <not-found-page id="page-404" on-iron-select="onIronSelect"></not-found-page>
-          </iron-pages>
-        </main>
-      </app-header-layout>
-    </app-drawer-layout>
+  </paper-listbox>
+  </app-header-layout>
+  </app-drawer>
+  <!-- main panel -->
+  <app-header-layout>
+    <app-header fixed effects="waterfall">
+      <app-toolbar class="title-toolbar main-title-toolbar">
+        <paper-icon-button drawer-toggle icon="menu" alt="Toggle menu" noink></paper-icon-button>
+        <h1 class="title">App Title</h1>
+      </app-toolbar>
+    </app-header>
+    <main class="main-container">
+      <iron-pages id="pages" selected="[[data.page]]" attr-for-selected="id" fallback-selection="page-404">
+        <home-page id="home">
+        </home-page>
+        <public-page id="public-page">
+        </public-page>
+        <private-page id="private-page">
+        </private-page>
+        <not-found-page id="page-404" on-iron-select="onIronSelect"></not-found-page>
+      </iron-pages>
+    </main>
+  </app-header-layout>
+  </app-drawer-layout>
   </template>
   <script>
     (function() {
@@ -119,7 +115,7 @@
           }
         },
         listeners: {
-          'pages.iron-select': '_onPagesSelected'
+          'pages.iron-select': '_onPageSelected'
         },
         drawerSelected: function() {
           if (!this.$.drawer.persistent) this.$.drawer.close();
@@ -127,13 +123,14 @@
 
         ready: function() {
           this.async(function() {
-            if(!this.route.path || this.route.path === '/') {
+            if (!this.route.path || this.route.path === '/') {
               this.set('route.path', '/home');
             }
           });
         },
-        _onPagesSelected: function(event) {
-          if(this.$.page404 === event.detail.item) {
+
+        _onPageSelected: function(event) {
+          if (this.$.page404 === event.detail.item) {
             // handler for 404 page can be added here
           } else {
             this.fire('iron-signal', {
@@ -142,9 +139,11 @@
             });
           }
         },
+
         login: function(event) {
           this.$.authModel.login();
         },
+
         logout: function(event) {
           this.$.authModel.logout();
           this.set('route.path', '/home');
