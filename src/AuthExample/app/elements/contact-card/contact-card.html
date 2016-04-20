@@ -47,7 +47,7 @@
         margin: 0.5em 0;
       }
     </style>
-    <div class="avatar-container" hidden$="{{!user.avatar}}">
+    <div class="avatar-container" hidden$="{{!user.picture}}">
       <div class="image"></div>
     </div>
     <div class="contact-info">
@@ -74,7 +74,7 @@
         },
         _updateAvatar: function() {
           if(this.user) {
-            this.customStyle['--contact-card-avatar-url'] = 'url(\'' + this.user.avatar + '\')';
+            this.customStyle['--contact-card-avatar-url'] = 'url(\'' + this.user.picture + '\')';
             this.updateStyles();
           }
         }

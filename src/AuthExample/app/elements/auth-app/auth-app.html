@@ -55,11 +55,11 @@
       <app-drawer id="drawer" swipe-open>
         <app-header-layout has-scrolling-region>
           <div class="login-actions">
-            <template is="dom-if" if="{{!user}}">
-              <paper-button noink>Login</paper-button>
+            <template is="dom-if" if="{{!authenticated}}">
+              <paper-button noink on-tap="login">Login</paper-button>
             </template>
-            <template is="dom-if" if="{{user}}">
-              <paper-button noink>Logout</paper-button>
+            <template is="dom-if" if="{{authenticated}}">
+              <paper-button noink on-tap="logout">Logout</paper-button>
             </template>
           </div>
           <template is="dom-if" if="{{user}}">
@@ -72,7 +72,9 @@
             on-iron-activate="drawerSelected">
             <paper-item name="home">Home</paper-item>
             <paper-item name="public-page">Public Page</paper-item>
-            <paper-item name="private-page">Private Page</paper-item>
+            <template is="dom-if" if="{{authenticated}}">
+              <paper-item name="private-page">Private Page</paper-item>
+            </template>
           </paper-listbox>
         </app-header-layout>
       </app-drawer>
@@ -119,16 +121,6 @@
         listeners: {
           'pages.iron-select': '_onPagesSelected'
         },
-        attached: function() {
-          this.async(function() {
-            this.user = {
-              name: 'Peter Grzegorz Blazejewicz',
-              email: 'email@example.com',
-              avatar: '//app-layout-assets.appspot.com/assets/pesto/avatar.jpg'
-            }
-          });
-        },
-
         drawerSelected: function() {
           if (!this.$.drawer.persistent) this.$.drawer.close();
         },
@@ -139,7 +131,6 @@
               this.set('route.path', '/home');
             }
           });
-
         },
         _onPagesSelected: function(event) {
           if(this.$.page404 === event.detail.item) {
@@ -150,6 +141,13 @@
               data: this.data.page
             });
           }
+        },
+        login: function(event) {
+          this.$.authModel.login();
+        },
+        logout: function(event) {
+          this.$.authModel.logout();
+          this.set('route.path', '/home');
         }
       });
     })();
