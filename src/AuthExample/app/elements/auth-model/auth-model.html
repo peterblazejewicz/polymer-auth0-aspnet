@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="auth0-js-import.html">
 <link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-localstorage/iron-localstorage.html">
 <!-- Auth0 Lock script and AngularJS module -->
 
 <dom-module id="auth-model">
@@ -19,6 +20,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         display: none;
       }
     </style>
+    <iron-localstorage name="user-locastorage"
+      value="{{user}}"></iron-localstorage>
+    <iron-localstorage name="token-localstorage"
+      value="{{token}}"></iron-localstorage>
   </template>
   <script>
     (function() {
@@ -55,6 +60,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             notify: true
           },
 
+          token: {
+            type: String,
+            value: null
+          },
+
           ref: {
             type: Object,
             readOnly: true,
@@ -83,8 +93,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 console.log(err);
               } else {
                 self.user = profile;
-                localStorage.setItem('profile', JSON.stringify(profile));
-                localStorage.setItem('id_token', token);
+                self.token = token;
                 self.isAuthenticated = true;
               }
             });
@@ -93,17 +102,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         logout: function() {
           this.user = null;
-          // TODO
-          localStorage.removeItem('profile');
-          localStorage.removeItem('id_token');
+          this.token = null;
           this.isAuthenticated = false;
         },
 
         getDecodedJwt: function() {
-          var jwt = localStorage.getItem('id_token');
-          if (jwt) {
-            this.decodedJwt = JSON.stringify(jwt_decode(jwt), null, 2);
-          }
+          // var jwt = localStorage.getItem('id_token');
+          // if (jwt) {
+          //   this.decodedJwt = JSON.stringify(jwt_decode(jwt), null, 2);
+          // }
         }
 
       });
