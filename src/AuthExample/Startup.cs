@@ -1,4 +1,5 @@
 using System;
+using AuthExample.Properties;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,7 +30,8 @@ namespace AuthExample
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
+            services.AddOptions();
+            services.Configure<Auth0Settings>(Configuration.GetSection("Auth0"));
             services.AddMvc();
         }
 
